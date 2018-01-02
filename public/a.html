@@ -1,0 +1,75 @@
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <style type="text/css">
+  </style>
+  </head>
+  <body>
+
+  <div class="content">
+    <span>账号：<input type="text" id="user"></span><br/>
+    <span>密码：<input type="text" id="pass"></span><br />
+    <input type="checkbox" id="check" />自动登陆<br />
+    <button id="btn">注册</button>
+    <button id="login">登录</button>
+  </div>
+   <script type="text/javascript" src='ajax.js'></script>
+      <script type="text/javascript">
+      btn.onclick = function(){
+        ajax({
+            url:'http://localhost:8004/resign',
+            type:'post',
+            data:{
+              user:user.value,
+              pass:pass.value
+            },
+            success:function(data){
+              alert(data)
+            }
+          })
+      
+      
+    }
+      login.onclick = function(){
+        ajax({
+          url:'http://localhost:8004/login',
+          type:'post',
+          data:{
+            user:user.value,
+            pass:pass.value,
+            cook:check.checked
+          },
+          success:function(data){
+            console.log(data)
+          var gl=data.split("=")[0]
+          var gj=data.split("=")[1]
+          console.log(gl)
+          console.log(gj)
+          if(gl=="登陆成功"){
+            document.write("欢迎您"+gj)
+          }
+          }
+        })
+      }
+      ajax({
+        url:'http://localhost:8004/orig',
+        type:'get',
+        success:function(data){
+          console.log(data)
+          var gl=data.split("=")[0]
+          var gj=data.split("=")[1]
+          console.log(gl)
+          console.log(gj)
+
+          if(gl=="登陆成功"){
+            document.write("欢迎您"+gj)
+            
+          }
+        }
+      })
+          
+      </script>
+  </body>
+</html>
